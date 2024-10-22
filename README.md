@@ -1,7 +1,7 @@
 # Varuautomat
 
 ## Översikt
-Varuautomat är en grafisk användargränssnitt (GUI)-applikation som simulerar en varuautomat. Användare kan köpa böcker, snacks och drycker. Applikationen hanterar lager, priser och momsberäkningar.
+Projektet varuautomat är en grafisk användargränssnitt är en inlämmning för kursen programmering 2, en (GUI)-applikation som simulerar en varuautomat. Användare kan köpa böcker, snacks och drycker. Applikationen hanterar lager, priser och momsberäkningar.
 
 ## Funktioner
 - **Kategorier av produkter**: Användare kan välja mellan böcker, snacks och drycker.
