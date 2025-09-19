@@ -1,56 +1,119 @@
-# Varuautomat GUI Applikation
+# Vending Machine GUI Application
 
-Detta projekt är en Java-baserad GUI-applikation som simulerar en varuautomat. Applikationen ger ett användargränssnitt där användare kan visa, välja och köpa varor från olika kategorier (Böcker, Snacks och Drycker). Bakomliggande lager hanteras av ett system som sparar och laddar varulistan från en lokal fil (`vending_inventory.csv`), vilket gör att lagret består mellan sessioner.
+This project is a **Java-based GUI application** that simulates a vending machine. The application provides a graphical interface where users can view, select, and purchase items from different categories (**Books**, **Snacks**, and **Drinks**).
 
+The inventory is managed by a backend system that **saves and loads product data** from a local file (`vending_inventory.csv`), ensuring that stock persists between sessions.
 
-### Genomgång av klasser
+---
 
-#### 1. **UI.java** (Användargränssnittet)
+## Class Overview
 
-`UI.java` är huvudklassen som ansvarar för hela användargränssnittet. Här hanteras fönstrets layout, menyval för olika kategorier och köp av produkter.
+### 1. **UI.java** (User Interface)
 
-#### 2. **Varor.java** (Abstrakt klass för varor)
+`UI.java` is the main class responsible for the entire graphical interface.
+It handles:
 
-`Varor.java` är en abstrakt klass som representerar alla typer av produkter i systemet. Varje produkt har ett namn, ett pris, en kvantitet och en momssats.
+* Window layout and design
+* Menu navigation for different product categories
+* Purchase handling and user interaction
 
-#### 3. **Pocketbok.java** (Böcker)
+---
 
-`Pocketbok.java` är en klass som representerar böcker. Denna klass är en subklass till `Varor` och lägger till attributen författare och genre.
+### 2. **Varor.java** (Abstract Product Class)
 
-#### 4. **Dricka.java** (Drycker)
+`Varor.java` is an abstract class representing all types of products in the system.
+Each product contains:
 
-`Dricka.java` representerar dryckesprodukter. Denna klass är också en subklass till `Varor` och lägger till attributet temperatur.
+* **Name**
+* **Price**
+* **Quantity**
+* **Tax rate (VAT)**
 
-#### 5. **Snacks.java** (Snacks)
+---
 
-`Snacks.java` representerar snacksprodukter och är en subklass till `Varor`. Förutom grundegenskaperna hos en produkt har snacks även information om de innehåller nötter eller inte samt antalet kalorier.
+### 3. **Pocketbok.java** (Books)
 
-#### 6. **StorageManager.java** (Lagerhantering)
+`Pocketbok.java` is a subclass of `Varor` representing books.
+Additional attributes:
 
-`StorageManager.java` ansvarar för att hantera lagring och laddning av produktlagret från en fil. Det använder en `Map` där nyckeln är produktkategorin (som en sträng) och värdet är en array av produkter (`Varor[]`).
-x
+* **Author**
+* **Genre**
 
-### Funktioner i detalj
+---
 
-1. **Grafisk design**:
-   - Varje kategori har egna färger för en visuell separation (t.ex. blått för böcker, grönt för snacks, rött för drycker).
-   - Hover-effekter och kursorsymboler används för att göra interaktionen mer intuitiv.
-   
-2. **Lagerhantering**:
-   - Lagret sparas till en fil i binärt format när programmet stängs. När programmet startar igen, laddas lagret från filen så att data består mellan sessioner.
-   - `StorageManager` hanterar alla interaktioner med filsystemet och säkerställer att lagret är synkroniserat med vad som visas i gränssnittet.
+### 4. **Dricka.java** (Drinks)
 
-3. **Interaktion och köplogik**:
-   - När en användare väljer en produkt, visas en dialogruta som frågar om köpet ska bekräftas. Om användaren bekräftar, minskar produkten i lager och lagret uppdateras.
-   - Om en produkt är slut, visas ett meddelande som informerar användaren om att artikeln inte finns i lager.
+`Dricka.java` represents drink products and extends `Varor`.
+Additional attribute:
 
+* **Temperature**
 
-## Anpassa lagret
+---
 
-För att anpassa standardlagret (om inget sparat lager finns) kan du modifiera metoden `initializeDefaultInventory()` i `UI.java`. Denna metod sätter standardböcker, drycker och snacks som finns tillgängliga i varuautomaten.
+### 5. **Snacks.java** (Snacks)
 
-### Exempel:
+`Snacks.java` represents snack products and is a subclass of `Varor`.
+Additional attributes:
+
+* Whether the snack **contains nuts**
+* **Calorie count**
+
+---
+
+### 6. **StorageManager.java** (Inventory Management)
+
+`StorageManager.java` handles **loading and saving inventory data** to and from a file.
+It uses a `Map` where:
+
+* **Key:** Product category (String)
+* **Value:** Array of products (`Varor[]`)
+
+---
+
+## Features in Detail
+
+### 1. **Graphical Design**
+
+* Each product category has its **own color theme** for visual clarity:
+
+  * **Blue** for Books
+  * **Green** for Snacks
+  * **Red** for Drinks
+* **Hover effects** and **cursor changes** improve interactivity.
+
+---
+
+### 2. **Inventory Management**
+
+* Inventory is **saved to a file** when the program closes.
+* Upon restart, inventory is **loaded from the file**, ensuring stock remains persistent between sessions.
+* `StorageManager` ensures that the inventory in the GUI always matches the saved data.
+
+---
+
+### 3. **User Interaction & Purchase Logic**
+
+* When a user selects a product, a **confirmation dialog** appears asking if they want to proceed with the purchase.
+* If confirmed:
+
+  * The product stock decreases.
+  * The inventory updates automatically.
+* If the product is **out of stock**, a message alerts the user.
+
+---
+
+## Customizing the Inventory
+
+To customize the **default inventory** (if no saved inventory file exists), edit the `initializeDefaultInventory()` method in `UI.java`.
+This method sets up default items for Books, Drinks, and Snacks.
+
+### Example:
+
 ```java
 Varor[] drinks = {
     new Dricka("Cola", 20, 10),
-    new Dricka("Apelsinläsk", 20, 8),
+    new Dricka("Orange Soda", 20, 8),
+};
+```
+
+This allows you to easily add, remove, or modify products before the vending machine is launched.
